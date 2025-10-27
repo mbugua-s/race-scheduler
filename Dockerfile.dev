@@ -1,0 +1,19 @@
+# Dockerfile.dev
+FROM node:22
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Install dependencies first (better caching)
+COPY package*.json ./
+
+RUN npm install
+
+# Copy rest of the source code
+COPY . .
+
+# Expose NestJS default port
+EXPOSE 3000
+
+# Start in development mode (with hot reload)
+CMD ["npm", "run", "start:dev"]
