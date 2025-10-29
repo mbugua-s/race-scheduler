@@ -24,10 +24,10 @@ services:
     restart: always
     env_file:
       - .env.development
-    environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
+    # environment:
+    #   POSTGRES_USER: ${DATABASE_USER}
+    #   POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    #   POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "5432:5432"
     volumes:
