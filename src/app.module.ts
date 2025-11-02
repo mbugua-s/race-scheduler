@@ -6,7 +6,6 @@ import { EnvSchema } from './config/env.schema';
 import { PrismaService } from './prisma/prisma.service';
 import { config as dotenvConfig } from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
-// import { PrismaModule } from './prisma/prisma.module';
 
 const env = process.env.NODE_ENV || 'production';
 const envFilePaths = [
