@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  // output   = "../generated/prisma"
 }
 
 datasource db {
@@ -12,7 +11,7 @@ datasource db {
 // Car Classes and Cars
 // -----------------------------
 model CarClass {
-  id          Int          @id @default(autoincrement())
+  id          String       @id @default(uuid())
   name        String       @unique
   description String?
   cars        Car[]
@@ -20,12 +19,12 @@ model CarClass {
 }
 
 model Car {
-  id           Int      @id @default(autoincrement())
+  id           String     @id @default(uuid())
   name         String
   manufacturer String
-  carClassId   Int
+  carClassId   String
 
-  carClass     CarClass @relation(fields: [carClassId], references: [id])
+  carClass     CarClass   @relation(fields: [carClassId], references: [id])
   raceClassCars RaceClassCar[]
 }
 
@@ -33,7 +32,7 @@ model Car {
 // Tracks and Layouts
 // -----------------------------
 model Track {
-  id        Int           @id @default(autoincrement())
+  id        String        @id @default(uuid())
   name      String
   country   String?
   layouts   TrackLayout[]
@@ -41,12 +40,12 @@ model Track {
 }
 
 model TrackLayout {
-  id        Int      @id @default(autoincrement())
+  id        String     @id @default(uuid())
   name      String
   lengthKm  Float?
-  trackId   Int
+  trackId   String
 
-  track     Track    @relation(fields: [trackId], references: [id])
+  track     Track      @relation(fields: [trackId], references: [id])
   schedules RaceSchedule[]
 }
 
@@ -54,18 +53,16 @@ model TrackLayout {
 // Race Schedules (core event)
 // -----------------------------
 model RaceSchedule {
-  id               Int        @id @default(autoincrement())
+  id               String       @id @default(uuid())
   name             String
   date             DateTime
   description      String?
-  trackId          Int
-  layoutId         Int?
+  trackId          String
+  layoutId         String?
 
-  // Entry requirements
   minDriverRating  Float?
   minSafetyRating  Float?
 
-  // Race configuration
   maxTyres         Int?
   minDrivers       Int?
   maxDrivers       Int?
@@ -77,8 +74,8 @@ model RaceSchedule {
   raceLength       Int?
   raceLengthType   RaceLengthType @default(TIME)
 
-  track            Track       @relation(fields: [trackId], references: [id])
-  layout           TrackLayout? @relation(fields: [layoutId], references: [id])
+  track            Track         @relation(fields: [trackId], references: [id])
+  layout           TrackLayout?   @relation(fields: [layoutId], references: [id])
   raceClasses      RaceClass[]
 }
 
@@ -86,9 +83,9 @@ model RaceSchedule {
 // Race-Class Linking (multiclass support)
 // -----------------------------
 model RaceClass {
-  id             Int        @id @default(autoincrement())
-  raceScheduleId Int
-  carClassId     Int
+  id             String      @id @default(uuid())
+  raceScheduleId String
+  carClassId     String
 
   raceSchedule   RaceSchedule @relation(fields: [raceScheduleId], references: [id])
   carClass       CarClass     @relation(fields: [carClassId], references: [id])
@@ -99,10 +96,10 @@ model RaceClass {
 // Specific Car Allow/Disallow Control
 // -----------------------------
 model RaceClassCar {
-  id          Int      @id @default(autoincrement())
-  raceClassId Int
-  carId       Int
-  allowed     Boolean  @default(true)
+  id          String    @id @default(uuid())
+  raceClassId String
+  carId       String
+  allowed     Boolean   @default(true)
 
   raceClass   RaceClass @relation(fields: [raceClassId], references: [id])
   car         Car       @relation(fields: [carId], references: [id])

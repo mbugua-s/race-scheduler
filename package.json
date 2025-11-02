@@ -19,12 +19,11 @@
 		"test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
 		"test:e2e": "vitest run --config ./vitest.config.e2e.ts",
 		"type-check": "tsc --noEmit",
-		"compose:up": "docker compose --env-file .env.development up -d"
-	},
-	"prisma": {
-		"generate": "dotenv -e .env.development -- prisma generate",
-		"migrate": "dotenv -e .env.development -- prisma migrate dev",
-		"seed": "dotenv -e .env.development -- ts-node --esm prisma/seed.ts"
+		"compose:up": "docker compose --env-file .env.development up -d",
+		"prisma:generate": "dotenv -e .env.development -- prisma generate",
+		"prisma:migrate": "dotenv -e .env.development -- prisma migrate dev",
+		"prisma:reset": "dotenv -e .env.development -- prisma migrate reset",
+		"prisma:seed": "dotenv -e .env.development -- ts-node --esm prisma/seed.ts"
 	},
 	"dependencies": {
 		"@nestjs/common": "^11.0.1",

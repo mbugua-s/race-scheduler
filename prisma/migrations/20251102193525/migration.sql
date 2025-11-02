@@ -12,7 +12,7 @@ CREATE TYPE "RaceLengthType" AS ENUM ('TIME', 'LAPS');
 
 -- CreateTable
 CREATE TABLE "CarClass" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
 
@@ -21,17 +21,17 @@ CREATE TABLE "CarClass" (
 
 -- CreateTable
 CREATE TABLE "Car" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "manufacturer" TEXT NOT NULL,
-    "carClassId" INTEGER NOT NULL,
+    "carClassId" TEXT NOT NULL,
 
     CONSTRAINT "Car_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Track" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "country" TEXT,
 
@@ -40,22 +40,22 @@ CREATE TABLE "Track" (
 
 -- CreateTable
 CREATE TABLE "TrackLayout" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "lengthKm" DOUBLE PRECISION,
-    "trackId" INTEGER NOT NULL,
+    "trackId" TEXT NOT NULL,
 
     CONSTRAINT "TrackLayout_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "RaceSchedule" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
     "description" TEXT,
-    "trackId" INTEGER NOT NULL,
-    "layoutId" INTEGER,
+    "trackId" TEXT NOT NULL,
+    "layoutId" TEXT,
     "minDriverRating" DOUBLE PRECISION,
     "minSafetyRating" DOUBLE PRECISION,
     "maxTyres" INTEGER,
@@ -74,18 +74,18 @@ CREATE TABLE "RaceSchedule" (
 
 -- CreateTable
 CREATE TABLE "RaceClass" (
-    "id" SERIAL NOT NULL,
-    "raceScheduleId" INTEGER NOT NULL,
-    "carClassId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "raceScheduleId" TEXT NOT NULL,
+    "carClassId" TEXT NOT NULL,
 
     CONSTRAINT "RaceClass_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "RaceClassCar" (
-    "id" SERIAL NOT NULL,
-    "raceClassId" INTEGER NOT NULL,
-    "carId" INTEGER NOT NULL,
+    "id" TEXT NOT NULL,
+    "raceClassId" TEXT NOT NULL,
+    "carId" TEXT NOT NULL,
     "allowed" BOOLEAN NOT NULL DEFAULT true,
 
     CONSTRAINT "RaceClassCar_pkey" PRIMARY KEY ("id")
