@@ -5,7 +5,16 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class TracksService {
 	constructor(private prisma: PrismaService) {}
+
 	async getAllTracks(): Promise<Track[]> {
 		return await this.prisma.track.findMany();
+	}
+
+	async createTrack(track: Track) {
+		try {
+			return await this.prisma.track.create({ data: track });
+		} catch (error) {
+			console.error(error);
+		}
 	}
 }
