@@ -1,4 +1,5 @@
 /* eslint-disable */
+// docker run --add-host=host.docker.internal:host-gateway --rm -i -v $(pwd)/loadtest.js:/scripts/loadtest.js grafana/k6 run /scripts/loadtest.js
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 

@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile.dev  # use Dockerfile for production
     ports:
       - "3000:3000"
+    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - .:/usr/src/app
       # - /usr/src/app/node_modules  # prevent overwriting node_modules
