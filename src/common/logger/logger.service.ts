@@ -10,18 +10,38 @@ export class AppLogger extends ConsoleLogger implements LoggerService {
 	protected context = AppLogger.name;
 
 	log(message: string, stackOrContext?: string) {
-		super.log(message, stackOrContext);
+		if (stackOrContext) {
+			super.log(message, stackOrContext);
+		} else {
+			super.log(message);
+		}
 	}
 	warn(message: string, stackOrContext?: string) {
-		super.warn(message, stackOrContext);
+		if (stackOrContext) {
+			super.warn(message, stackOrContext);
+		} else {
+			super.warn(message);
+		}
 	}
 	debug(message: string, stackOrContext?: string) {
-		super.debug(message, stackOrContext);
+		if (stackOrContext) {
+			super.debug(message, stackOrContext);
+		} else {
+			super.debug(message);
+		}
 	}
 	error(message: string, stackOrContext?: string) {
-		super.error(message, stackOrContext);
+		if (stackOrContext) {
+			super.error(message, stackOrContext);
+		} else {
+			super.error(message);
+		}
 	}
 	verbose(message: string, stackOrContext?: string) {
-		super.verbose(message, stackOrContext);
+		if (stackOrContext) {
+			super.verbose(message, stackOrContext);
+		} else {
+			super.verbose(message);
+		}
 	}
 }

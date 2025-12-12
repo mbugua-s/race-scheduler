@@ -13,6 +13,7 @@ export class TracksService {
 	}
 
 	async getTrackById(trackId: string): Promise<Track> {
+		this.logger.log('Getting single track...');
 		const query = {
 			where: {
 				id: trackId,
