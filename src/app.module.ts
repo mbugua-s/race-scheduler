@@ -7,6 +7,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { config as dotenvConfig } from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import { TracksModule } from './tracks/tracks.module';
+import { LoggingModule } from './common/logger/logger.module';
 
 const env = process.env.NODE_ENV || 'production';
 const envFilePaths = [
@@ -37,6 +38,7 @@ dotenvExpand.expand(dotenvConfig({ path: envFilePaths[0] }));
 			},
 		}),
 		TracksModule,
+		LoggingModule,
 	],
 	// PrismaModule,
 	controllers: [AppController],

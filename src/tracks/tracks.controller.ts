@@ -3,18 +3,22 @@ import {
 	Controller,
 	Get,
 	Post,
-	Logger,
 	Param,
 	Put,
 	Delete,
 } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 import type { Track } from '@prisma/client';
+import { AppLogger } from 'src/common/logger/logger.service';
 
 @Controller('tracks')
 export class TracksController {
-	private readonly logger = new Logger(TracksController.name);
-	constructor(private readonly tracksService: TracksService) {}
+	constructor(
+		private readonly tracksService: TracksService,
+		private readonly logger: AppLogger,
+	) {
+		this.logger.setContext(TracksController.name);
+	}
 
 	@Get()
 	async getAllTracks() {

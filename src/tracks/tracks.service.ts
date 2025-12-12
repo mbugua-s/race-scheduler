@@ -1,12 +1,16 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Track } from '@prisma/client';
+import { AppLogger } from 'src/common/logger/logger.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class TracksService {
-	private readonly logger = new Logger(TracksService.name);
-
-	constructor(private prisma: PrismaService) {}
+	constructor(
+		private prisma: PrismaService,
+		private readonly logger: AppLogger,
+	) {
+		this.logger.setContext(TracksService.name);
+	}
 
 	async getTrackById(trackId: string): Promise<Track> {
 		const query = {
