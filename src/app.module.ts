@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { EnvSchema } from './config/env.schema';
+import { EnvSchema } from './common/config/env.schema';
 import { PrismaService } from './prisma/prisma.service';
 import { config as dotenvConfig } from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
+import { TracksModule } from './tracks/tracks.module';
+import { LoggingModule } from './common/logger/logger.module';
 
 const env = process.env.NODE_ENV || 'production';
 const envFilePaths = [
@@ -35,7 +37,8 @@ dotenvExpand.expand(dotenvConfig({ path: envFilePaths[0] }));
 				return parsed.data;
 			},
 		}),
-		// ...other modules
+		TracksModule,
+		LoggingModule,
 	],
 	// PrismaModule,
 	controllers: [AppController],

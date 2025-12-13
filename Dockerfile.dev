@@ -15,5 +15,8 @@ COPY . .
 # Expose NestJS default port
 EXPOSE 3000
 
+ENV TZ="Africa/Nairobi"
+RUN date
+
 # Start in development mode (with hot reload)
 CMD ["npm", "run", "start:dev"]
