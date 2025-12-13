@@ -3,7 +3,7 @@ services:
     container_name: rc-sch-app
     build:
       context: .
-      dockerfile: Dockerfile.dev  # use Dockerfile for production
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     user: "${UID:-1000}:${GID:-1000}"
@@ -23,12 +23,6 @@ services:
     image: postgres:15
     container_name: rc-sch-db
     restart: always
-    # env_file:
-    #   - .env.development
-    # environment:
-    #   POSTGRES_USER: ${DATABASE_USER}
-    #   POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    #   POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "5432:5432"
     volumes:

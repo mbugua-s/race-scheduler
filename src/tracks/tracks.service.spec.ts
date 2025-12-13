@@ -4,59 +4,51 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { AppLogger } from 'src/common/logger/logger.service';
 import { expect, test, vi, describe, beforeEach } from 'vitest';
 import { LoggingModule } from 'src/common/logger/logger.module';
+import { mockPrisma, mockTrack } from 'src/common/mocks/prisma';
+import { mockLogger } from 'src/common/mocks/logger';
 
 describe('TracksService', () => {
 	let service: TracksService;
-	let prisma: PrismaService;
-
-	const fakeTrack = {
-		id: 'test-id',
-		name: 'Test Track',
-		country: 'Country',
-	};
-
-	const prismaMock = {
-		track: {
-			findFirstOrThrow: vi.fn(() => fakeTrack),
-		},
-	};
-
-	const loggerMock = {
-		setContext: vi.fn(),
-		log: vi.fn(),
-		error: vi.fn(),
-		warn: vi.fn(),
-		debug: vi.fn(),
-		verbose: vi.fn(),
-	};
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				TracksService,
-				{ provide: PrismaService, useValue: prismaMock },
+				{ provide: PrismaService, useValue: mockPrisma },
 			],
 			imports: [LoggingModule],
 		})
 			.overrideProvider(AppLogger)
-			.useValue(loggerMock)
+			.useValue(mockLogger)
 			.compile();
 
 		service = module.get<TracksService>(TracksService);
-		prisma = module.get<PrismaService>(PrismaService);
 
-		// clear mocks before each test
 		vi.clearAllMocks();
 	});
 
 	test('gets track by ID', async () => {
-		const findSpy = vi.spyOn(prisma.track, 'findFirstOrThrow');
+		const result = await service.getTrackById(mockTrack.id);
+		expect(result).toEqual(mockTrack);
+	});
 
-		const result = await service.getTrackById(fakeTrack.id);
+	test('gets all tracks', async () => {
+		const result = await service.getAllTracks();
+		expect(result).toEqual([mockTrack]);
+	});
 
-		expect(result).toEqual(fakeTrack);
-		expect(findSpy).toHaveBeenCalledWith({
-			where: { id: fakeTrack.id },
-		});
+	test('creates a track', async () => {
+		const result = await service.createTrack(mockTrack);
+		expect(result).toEqual(mockTrack);
+	});
+
+	test('updates a track', async () => {
+		const result = await service.updateTrackById(mockTrack.id, mockTrack);
+		expect(result).toEqual(mockTrack);
+	});
+
+	test('deletes a track', async () => {
+		const result = await service.deleteTrackById(mockTrack.id);
+		expect(result).toEqual(mockTrack);
 	});
 });

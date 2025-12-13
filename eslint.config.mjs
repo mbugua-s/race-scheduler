@@ -35,4 +35,12 @@ export default defineConfig([
 			'@typescript-eslint/no-unsafe-argument': 'warn',
 		},
 	},
+
+	{
+		files: ['src/common/mocks/**/*.{ts,tsx,js,jsx}'],
+		rules: {
+			'no-unused-vars': 'off',
+			'@typescript-eslint/no-unused-vars': 'off',
+		},
+	},
 ]);
