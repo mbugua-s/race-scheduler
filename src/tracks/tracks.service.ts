@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Track } from '@prisma/client';
 import { AppLogger } from 'src/common/logger/logger.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateTrackDto } from './dto/create-track.dto';
+import { UpdateTrackDto } from './dto/update-track.dto';
 
 @Injectable()
 export class TracksService {
@@ -27,13 +29,16 @@ export class TracksService {
 		return await this.prisma.track.findMany();
 	}
 
-	async createTrack(track: Track): Promise<Track> {
+	async createTrack(track: CreateTrackDto): Promise<Track> {
 		this.logger.log('Creating single track...');
 		const query = { data: track };
 		return await this.prisma.track.create(query);
 	}
 
-	async updateTrackById(trackId: string, track: Track): Promise<Track> {
+	async updateTrackById(
+		trackId: string,
+		track: UpdateTrackDto,
+	): Promise<Track> {
 		this.logger.log('Updating track...');
 		const query = {
 			where: {

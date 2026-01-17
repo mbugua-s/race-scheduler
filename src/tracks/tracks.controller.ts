@@ -8,8 +8,9 @@ import {
 	Delete,
 } from '@nestjs/common';
 import { TracksService } from './tracks.service';
-import type { Track } from '@prisma/client';
 import { AppLogger } from 'src/common/logger/logger.service';
+import { CreateTrackDto } from './dto/create-track.dto';
+import { UpdateTrackDto } from './dto/update-track.dto';
 
 @Controller('tracks')
 export class TracksController {
@@ -33,13 +34,16 @@ export class TracksController {
 	}
 
 	@Post()
-	async createTrack(@Body() track: Track) {
+	async createTrack(@Body() track: CreateTrackDto) {
 		this.logger.log('Create track request received');
 		return await this.tracksService.createTrack(track);
 	}
 
 	@Put(':trackId')
-	async updateTrack(@Param('trackId') trackId: string, @Body() track: Track) {
+	async updateTrack(
+		@Param('trackId') trackId: string,
+		@Body() track: UpdateTrackDto,
+	) {
 		this.logger.log(`Update track with ID: ${trackId} request received`);
 		return await this.tracksService.updateTrackById(trackId, track);
 	}
