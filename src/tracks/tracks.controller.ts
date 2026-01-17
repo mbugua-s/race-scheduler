@@ -11,6 +11,8 @@ import { TracksService } from './tracks.service';
 import { AppLogger } from 'src/common/logger/logger.service';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
+import { ZodParams } from 'src/common/validators/params';
+import * as getTrackDto from './dto/get-track.dto';
 
 @Controller('tracks')
 export class TracksController {
@@ -28,9 +30,12 @@ export class TracksController {
 	}
 
 	@Get(':trackId')
-	async getTrackById(@Param('trackId') trackId: string) {
-		this.logger.log(`Get track by ID: ${trackId} request received`);
-		return await this.tracksService.getTrackById(trackId);
+	async getTrackById(
+		@Param(ZodParams(getTrackDto.GetTrackParamsSchema))
+		params: getTrackDto.GetTrackParams,
+	) {
+		this.logger.log(`Get track by ID: ${params.trackId} request received`);
+		return await this.tracksService.getTrackById(params.trackId);
 	}
 
 	@Post()
@@ -41,16 +46,24 @@ export class TracksController {
 
 	@Put(':trackId')
 	async updateTrack(
-		@Param('trackId') trackId: string,
+		@Param(ZodParams(getTrackDto.GetTrackParamsSchema))
+		params: getTrackDto.GetTrackParams,
 		@Body() track: UpdateTrackDto,
 	) {
-		this.logger.log(`Update track with ID: ${trackId} request received`);
-		return await this.tracksService.updateTrackById(trackId, track);
+		this.logger.log(
+			`Update track with ID: ${params.trackId} request received`,
+		);
+		return await this.tracksService.updateTrackById(params.trackId, track);
 	}
 
 	@Delete(':trackId')
-	async deleteTrackById(@Param('trackId') trackId: string) {
-		this.logger.log(`Delete track with ID: ${trackId} request received`);
-		return await this.tracksService.deleteTrackById(trackId);
+	async deleteTrackById(
+		@Param(ZodParams(getTrackDto.GetTrackParamsSchema))
+		params: getTrackDto.GetTrackParams,
+	) {
+		this.logger.log(
+			`Delete track with ID: ${params.trackId} request received`,
+		);
+		return await this.tracksService.deleteTrackById(params.trackId);
 	}
 }
