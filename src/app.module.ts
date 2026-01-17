@@ -8,6 +8,8 @@ import { config as dotenvConfig } from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import { TracksModule } from './tracks/tracks.module';
 import { LoggingModule } from './common/logger/logger.module';
+import { ZodValidationPipe } from 'nestjs-zod';
+import { APP_PIPE } from '@nestjs/core';
 
 const env = process.env.NODE_ENV || 'production';
 const envFilePaths = [
@@ -42,7 +44,14 @@ dotenvExpand.expand(dotenvConfig({ path: envFilePaths[0] }));
 	],
 	// PrismaModule,
 	controllers: [AppController],
-	providers: [AppService, PrismaService],
+	providers: [
+		AppService,
+		PrismaService,
+		{
+			provide: APP_PIPE,
+			useClass: ZodValidationPipe,
+		},
+	],
 	exports: [PrismaService],
 })
 export class AppModule {}
