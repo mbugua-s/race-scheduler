@@ -1,0 +1,12 @@
+{
+	"entryPoints": ["src"],
+	"tsconfig": "tsconfig.json",
+	"out": "docs",
+	"exclude": ["**/*.spec.ts", "**/node_modules/**", "**/dist/**"],
+	"excludeExternals": true,
+	"excludePrivate": true,
+	"excludeProtected": false,
+	"readme": "none",
+	"plugin": ["typedoc-material-theme"],
+	"themeColor": "#052163"
+}

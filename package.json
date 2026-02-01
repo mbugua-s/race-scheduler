@@ -23,7 +23,9 @@
 		"prisma:generate": "dotenv -e .env.development -- prisma generate",
 		"prisma:migrate": "dotenv -e .env.development -- prisma migrate dev",
 		"prisma:reset": "dotenv -e .env.development -- prisma migrate reset",
-		"prisma:seed": "dotenv -e .env.development -- ts-node --esm prisma/seed.ts"
+		"prisma:seed": "dotenv -e .env.development -- ts-node --esm prisma/seed.ts",
+		"docs:generate": "typedoc --entryPointStrategy expand",
+		"docs:serve": "http-server ./docs"
 	},
 	"dependencies": {
 		"@nestjs/common": "^11.0.1",
@@ -35,6 +37,7 @@
 		"dotenv": "^17.2.3",
 		"dotenv-cli": "^11.0.0",
 		"dotenv-expand": "^12.0.3",
+		"http-server": "^14.1.1",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.1",
 		"zod": "^4.1.12"
@@ -66,6 +69,8 @@
 		"ts-loader": "^9.5.2",
 		"ts-node": "^1.7.1",
 		"tsconfig-paths": "^4.2.0",
+		"typedoc": "^0.28.16",
+		"typedoc-material-theme": "^1.4.1",
 		"typescript": "^5.7.3",
 		"typescript-eslint": "^8.20.0",
 		"unplugin-swc": "^1.5.7",
