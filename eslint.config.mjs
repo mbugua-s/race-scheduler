@@ -25,9 +25,11 @@ export default defineConfig([
 				...globals.jest,
 			},
 			sourceType: 'commonjs',
+			parser: tseslint.parser,
 			parserOptions: {
 				project: './tsconfig.json',
 				tsconfigRootDir: import.meta.dirname,
+				ecmaVersion: 2023,
 			},
 		},
 		rules: {

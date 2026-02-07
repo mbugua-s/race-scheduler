@@ -11,6 +11,8 @@ export default defineConfig({
 			'@test': './test',
 		},
 		root: './',
+		globalSetup: ['./test/global-setup.ts'],
+		testTimeout: 60000,
 	},
 	resolve: {
 		alias: {

@@ -29,6 +29,10 @@ export class PrismaService
 		await this.$connect();
 	}
 
+	async cleanDatabase() {
+		await this.track.deleteMany();
+	}
+
 	async onModuleDestroy() {
 		await this.$disconnect();
 	}
