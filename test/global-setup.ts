@@ -23,15 +23,6 @@ export default async function () {
 		stdio: 'inherit',
 	});
 
-	// Run seed
-	execSync('npx prisma db seed', {
-		env: {
-			...process.env,
-			DATABASE_URL: databaseUrl,
-		},
-		stdio: 'inherit',
-	});
-
 	return async () => {
 		await container.stop();
 	};
