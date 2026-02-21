@@ -10,6 +10,7 @@ import { TracksModule } from './tracks/tracks.module';
 import { LoggingModule } from './common/logger/logger.module';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { APP_PIPE } from '@nestjs/core';
+import { CarClassesModule } from './car-classes/car-classes.module';
 
 const env = process.env.NODE_ENV || 'production';
 const envFilePaths = [
@@ -41,6 +42,7 @@ dotenvExpand.expand(dotenvConfig({ path: envFilePaths[0] }));
 		}),
 		TracksModule,
 		LoggingModule,
+		CarClassesModule,
 	],
 	// PrismaModule,
 	controllers: [AppController],

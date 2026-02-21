@@ -31,6 +31,8 @@ export class PrismaService
 
 	async cleanDatabase() {
 		await this.track.deleteMany();
+		await this.car.deleteMany();
+		await this.carClass.deleteMany();
 	}
 
 	async onModuleDestroy() {
